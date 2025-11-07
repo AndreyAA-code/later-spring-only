@@ -9,4 +9,5 @@ public interface ItemRepository {
     Item save(Item item);
 
     void deleteByUserIdAndItemId(long userId, long itemId);
+
 }

@@ -1,24 +1,12 @@
 package ru.practicum.item;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class ItemService {
-    private final ItemRepository itemRepository;
+public interface ItemService {
 
-    public List<Item> getItems(long userId) {
-            return null;
-    }
+    List<Item> getItems(long userId);
 
+    Item addNewItem(Long userId, Item item);
 
-    public Item addNewItem(Long userId, Item item) {
-        return null;
-    }
-
-    public void deleteItem(long userId, long itemId) {
-    }
+    void deleteItem(long userId, long itemId);
 }
