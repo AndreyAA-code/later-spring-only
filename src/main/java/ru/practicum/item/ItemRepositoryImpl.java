@@ -22,6 +22,5 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public void deleteByUserIdAndItemId(long userId, long itemId) {
-
     }
 }
