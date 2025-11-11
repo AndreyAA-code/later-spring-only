@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -14,6 +15,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 @RequiredArgsConstructor
 public class PersistenceConfig {
     private final Environment environment; // внедряем экземпляр Environment
@@ -60,4 +62,5 @@ public class PersistenceConfig {
                 environment.getProperty("hibernate.show_sql", "false"));
         return properties;
     }
+
 }
