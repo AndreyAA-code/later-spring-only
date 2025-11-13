@@ -3,6 +3,7 @@ package ru.practicum.user;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.Instant;
@@ -13,6 +14,6 @@ public class UserDto {
     private String email;
     private String firstName;
     private String lastName;
-    private Instant registrationDate;
+    private String registrationDate;
     private UserState state;
 }

@@ -1,6 +1,7 @@
 package ru.practicum.user;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.Instant;
