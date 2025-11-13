@@ -10,16 +10,22 @@ public class UserMapper {
     public static UserDto from(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
-        userDto.setName(user.getName());
         userDto.setEmail(user.getEmail());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setRegistrationDate(user.getRegistrationDate());
+        userDto.setState(user.getState());
         return userDto;
     }
 
     public static User from(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
-        user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setRegistrationDate(userDto.getRegistrationDate());
+        user.setState(userDto.getState());
         return user;
     }
 }

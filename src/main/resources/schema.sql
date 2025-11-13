@@ -1,5 +1,6 @@
 drop table if exists items;
 drop table if exists users;
+drop table if exists tags;
 
      create table if not exists items (
          id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -17,6 +18,6 @@ drop table if exists users;
     );
 
     create table if not exists tags (
-    name VARCHAR,
-    item_id BIGINT references items(id)
+        name VARCHAR,
+        item_id BIGINT references items(id)
     );
