@@ -10,5 +10,13 @@ drop table if exists users;
     create table if not exists users (
         id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         email VARCHAR UNIQUE,
-        name VARCHAR
+        first_name VARCHAR,
+        last_name VARCHAR,
+        registration_date BIGINT,
+        user_state VARCHAR CHECK (user_state IN ('ACTIVE', 'BLOCKED', 'DELETED'))
+    );
+
+    create table if not exists tags (
+    name VARCHAR,
+    item_id BIGINT references items(id)
     );
