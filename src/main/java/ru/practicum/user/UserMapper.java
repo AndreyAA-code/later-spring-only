@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import ru.practicum.item.ItemDto;
 
+import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
@@ -30,7 +31,7 @@ public class UserMapper {
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setRegistrationDate(userDto.getRegistrationDate());
+        user.setRegistrationDate(Instant.parse(userDto.getRegistrationDate()));
         user.setState(userDto.getState());
         return user;
     }
