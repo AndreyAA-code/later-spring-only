@@ -10,6 +10,5 @@ public class ItemDto {
     private Long id;
     private Long userId;
     private String url;
-    private Set<String> tags = new HashSet<>();
-
+    private Set<String> tags;
 }
