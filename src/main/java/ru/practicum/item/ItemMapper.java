@@ -9,8 +9,8 @@ public class ItemMapper {
     public static ItemDto from(Item item) {
         ItemDto itemDto = new ItemDto();
         itemDto.setId(item.getId());
-        itemDto.setUserId(item.getUserId());
-        itemDto.setUrl(item.getUrl());
+        itemDto.setUserId(item.getUser().getId());
+        itemDto.setUrl(item.getItemNote().getUrl());
         itemDto.setTags(item.getTags());
         return itemDto;
     }
