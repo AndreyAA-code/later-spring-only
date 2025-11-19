@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import ru.practicum.user.User;
 
+import java.util.HashSet;
+
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemMapper {
 
@@ -12,7 +14,7 @@ public class ItemMapper {
         itemDto.setId(item.getId());
         itemDto.setUserId(item.getUser().getId());
         itemDto.setUrl(item.getUrl());
-        itemDto.setTags(item.getTags());
+        itemDto.setTags(new HashSet<>(item.getTags()));
         return itemDto;
     }
 
