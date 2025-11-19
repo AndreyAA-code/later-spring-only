@@ -11,7 +11,7 @@ public class ItemMapper {
         ItemDto itemDto = new ItemDto();
         itemDto.setId(item.getId());
         itemDto.setUserId(item.getUser().getId());
-        itemDto.setUrl(item.getItemNote().getUrl());
+        itemDto.setUrl(item.getUrl());
         itemDto.setTags(item.getTags());
         return itemDto;
     }
@@ -20,7 +20,6 @@ public class ItemMapper {
         Item item = new Item();
         item.setId(itemDto.getId());
         item.setUser(user);
-      // item.setItemNote(ItemNote itemnote);
         item.setTags(itemDto.getTags());
         return item;
     }
