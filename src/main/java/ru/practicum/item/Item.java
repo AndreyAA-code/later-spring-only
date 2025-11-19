@@ -1,10 +1,10 @@
 package ru.practicum.item;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.practicum.note.ItemNote;
 import ru.practicum.user.User;
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Table(name = "items")
-class Item {
+public class Item {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,9 +23,8 @@ class Item {
     @ManyToOne
     @Column(name = "user_id")
     private User user;
-    @ManyToOne
     @Column(name ="url")
-    private ItemNote itemNote;
+    private String url;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="tags", joinColumns=@JoinColumn(name="item_id"))
     @Column(name="name")

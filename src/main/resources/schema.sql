@@ -26,6 +26,6 @@ drop table if exists item_notes;
     create table if not exists item_notes (
         id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         text VARCHAR(2000),
-        url VARCHAR references items(url),
-        timestamp VARCHAR
+        item_id BIGINT references items(id),
+        date VARCHAR
 );
