@@ -13,11 +13,11 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
 
-    public List<Item> getItems(long userId) {
+    public List<ItemDto> getItems(long userId) {
             return itemRepository.findByUserId(userId);
     }
 
-    public Item addNewItem(Long userId, Item item) {
+    public ItemDto addNewItem(Long userId, Item item) {
         return itemRepository.save(item);
     }
 

@@ -2,7 +2,6 @@ package ru.practicum.user;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import ru.practicum.item.ItemDto;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -11,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class UserMapper {
-    public static UserDto from(User user) {
+    public static UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
         String regDate = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss")
                 .withZone(ZoneOffset.UTC)
@@ -25,7 +24,7 @@ public class UserMapper {
         return userDto;
     }
 
-    public static User from(UserDto userDto) {
+    public static User mapToUser(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
         user.setEmail(userDto.getEmail());
