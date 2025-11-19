@@ -2,6 +2,7 @@ package ru.practicum.item;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import ru.practicum.user.User;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemMapper {
@@ -15,11 +16,11 @@ public class ItemMapper {
         return itemDto;
     }
 
-    public static Item MapToItem(ItemDto itemDto, Long userId) {
+    public static Item MapToItem(ItemDto itemDto, User user) {
         Item item = new Item();
         item.setId(itemDto.getId());
-        item.setUserId(userId);
-        item.setUrl(itemDto.getUrl());
+        item.setUser(user);
+      // item.setItemNote(ItemNote itemnote);
         item.setTags(itemDto.getTags());
         return item;
     }
