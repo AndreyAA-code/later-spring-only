@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemMapper {
 
-    public static ItemDto from(Item item) {
+    public static ItemDto mapToItemDto(Item item) {
         ItemDto itemDto = new ItemDto();
         itemDto.setId(item.getId());
         itemDto.setUserId(item.getUser().getId());
@@ -15,7 +15,7 @@ public class ItemMapper {
         return itemDto;
     }
 
-    public static Item from(ItemDto itemDto, Long userId) {
+    public static Item MapToItem(ItemDto itemDto, Long userId) {
         Item item = new Item();
         item.setId(itemDto.getId());
         item.setUserId(userId);

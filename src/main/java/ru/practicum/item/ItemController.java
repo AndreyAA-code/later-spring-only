@@ -18,8 +18,8 @@ public class ItemController {
 
     @PostMapping
     public ItemDto add(@RequestHeader("X-Later-User-Id") Long userId,
-                    @RequestBody Item item) {
-        return itemService.addNewItem(userId, item);
+                    @RequestBody ItemDto itemDto) {
+        return itemService.addNewItem(userId, itemDto);
     }
 
     @DeleteMapping("/{itemId}")
