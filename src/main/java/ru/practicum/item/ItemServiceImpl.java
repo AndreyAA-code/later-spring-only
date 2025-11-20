@@ -4,39 +4,46 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.user.User;
+import ru.practicum.user.UserRepository;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 @Transactional(readOnly = true)
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
-
-   /* public List<ItemDto> getItems(long userId, Set<String> tags) {
-       List<ItemDto> itemsDto = itemRepository.findByUserId(userId).
-                stream().
-                map (ItemMapper::mapToItemDto).
-                collect(Collectors.toList());
-            return itemsDto;
-    } */
+    private final UserRepository userRepository;
 
     @Override
-    public List<ItemDto> getItems(long userId, Set<String> tags) {
+    public List<ItemDto> getItems(Long userId) {
+        List<Item> userItems = itemRepository.findByUserId(userId);
+        return ItemMapper.mapToItemDto(userItems);
+    }
+
+    @Override
+    @Transactional
+    public ItemDto addNewItem(Long userId, ItemDto itemDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Item item = itemRepository.save(ItemMapper.mapToItem(itemDto, user));
+        return ItemMapper.mapToItemDto(item);
+    }
+
+    @Override
+    @Transactional
+    public void deleteItem(Long userId, Long id) {
+        itemRepository.deleteByUserIdAndId(userId, id);
+    }
+
+    @Override
+    public List<ItemDto> getItems(Long userId, Set<String> tags) {
         BooleanExpression byUserId = QItem.item.user.id.eq(userId);
         BooleanExpression byAnyTag = QItem.item.tags.any().in(tags);
         Iterable<Item> foundItems = itemRepository.findAll(byUserId.and(byAnyTag));
             return ItemMapper.mapToItemDto(foundItems);
     }
 
-    public ItemDto addNewItem(Long userId, ItemDto itemDto) {
-        Item item = ItemMapper.MapToItem(itemDto, user);
-        return ItemMapper.mapToItemDto(itemRepository.save(item));
-    }
-
-    public void deleteItem(long userId, long itemId) {
-        itemRepository.deleteByUserIdAndItemId(userId, itemId);
-    }
 }

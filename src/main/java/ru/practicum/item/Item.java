@@ -21,7 +21,7 @@ public class Item {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
     @Column(name ="url")
     private String url;

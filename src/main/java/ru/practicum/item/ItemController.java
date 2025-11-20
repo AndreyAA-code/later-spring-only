@@ -29,7 +29,7 @@ public class ItemController {
 
     @DeleteMapping("/{itemId}")
     public void deleteItem(@RequestHeader("X-Later-User-Id") long userId,
-                           @PathVariable(name="itemId") long itemId) {
-        itemService.deleteItem(userId, itemId);
+                           @PathVariable(name="id") long id) {
+        itemService.deleteItem(userId, id);
     }
 }
