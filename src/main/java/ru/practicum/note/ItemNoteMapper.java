@@ -6,6 +6,8 @@ import ru.practicum.item.Item;
 
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemNoteMapper {
@@ -28,6 +30,13 @@ public class ItemNoteMapper {
             itemNote.setItem(item);
             itemNote.setText(itemNoteDto.getText());
             return itemNote;
+    }
+
+    public static List<ItemNoteDto> mapToItemNoteDto(List<ItemNote> itemNotes) {
+        List<ItemNoteDto> itemNoteDtos = new ArrayList<>();
+        for (ItemNote itemNote : itemNotes) {
+        }
+        return itemNoteDtos;
     }
 
 }

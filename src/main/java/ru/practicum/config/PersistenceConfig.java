@@ -1,6 +1,7 @@
 package ru.practicum.config;
 
 import jakarta.persistence.EntityManagerFactory;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +17,11 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@RequiredArgsConstructor
+@AllArgsConstructor
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "ru.practicum")
 public class PersistenceConfig {
-    private final Environment environment; // внедряем экземпляр Environment
+    private Environment environment; // внедряем экземпляр Environment
 
     // здесь будут определения бинов
     @Bean

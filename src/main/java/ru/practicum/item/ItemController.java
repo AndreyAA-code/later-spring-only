@@ -1,5 +1,6 @@
 package ru.practicum.item;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,9 +9,9 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/items")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ItemController {
-    private final ItemService itemService;
+    private ItemService itemService;
 
     @GetMapping
     public List<ItemDto> get(@RequestHeader("X-Later-User-Id") long userId,
