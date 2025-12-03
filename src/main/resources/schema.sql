@@ -14,7 +14,7 @@ drop table if exists item_notes;
         email VARCHAR UNIQUE,
         first_name VARCHAR,
         last_name VARCHAR,
-        registration_date BIGINT,
+        registration_date Timestamp,
         user_state VARCHAR CHECK (user_state IN ('ACTIVE', 'BLOCKED', 'DELETED'))
     );
 

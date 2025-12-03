@@ -1,7 +1,7 @@
 package ru.practicum.item;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.user.User;
@@ -11,16 +11,24 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ItemServiceImpl implements ItemService {
-    private final ItemRepository itemRepository;
+class ItemServiceImpl implements ItemService {
+    private final ItemRepository repository;
     private final UserRepository userRepository;
 
     @Override
     public List<ItemDto> getItems(Long userId) {
-        List<Item> userItems = itemRepository.findByUserId(userId);
+        List<Item> userItems = repository.findByUserId(userId);
         return ItemMapper.mapToItemDto(userItems);
+    }
+
+    @Override
+    public List<ItemDto> getItems(Long userId, Set<String> tags) {
+        BooleanExpression byUserId = QItem.item.user.id.eq(userId);
+        BooleanExpression byAnyTag = QItem.item.tags.any().in(tags);
+        Iterable<Item> foundItems = repository.findAll(byUserId.and(byAnyTag));
+        return ItemMapper.mapToItemDto(foundItems);
     }
 
     @Override
@@ -28,22 +36,13 @@ public class ItemServiceImpl implements ItemService {
     public ItemDto addNewItem(Long userId, ItemDto itemDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Item item = itemRepository.save(ItemMapper.mapToItem(itemDto, user));
+        Item item = repository.save(ItemMapper.mapToItem(itemDto, user));
         return ItemMapper.mapToItemDto(item);
     }
 
     @Override
     @Transactional
-    public void deleteItem(Long userId, Long id) {
-        itemRepository.deleteByUserIdAndId(userId, id);
+    public void deleteItem(Long userId, Long itemId) {
+        repository.deleteByUserIdAndId(userId, itemId);
     }
-
-    @Override
-    public List<ItemDto> getItems(Long userId, Set<String> tags) {
-        BooleanExpression byUserId = QItem.item.user.id.eq(userId);
-        BooleanExpression byAnyTag = QItem.item.tags.any().in(tags);
-        Iterable<Item> foundItems = itemRepository.findAll(byUserId.and(byAnyTag));
-            return ItemMapper.mapToItemDto(foundItems);
-    }
-
 }

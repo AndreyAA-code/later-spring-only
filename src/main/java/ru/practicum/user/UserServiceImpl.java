@@ -12,12 +12,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
-class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
     @Override
-    @Transactional(readOnly = true)
     public List<UserDto> getAllUsers() {
         return repository.findAll()
                 .stream()
@@ -26,8 +25,9 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public UserDto saveUser(UserDto userDto) {
-        User user = repository.save(UserMapper.mapToUser(userDto));
+        User user = repository.save(UserMapper.mapToNewUser(userDto));
         return UserMapper.mapToUserDto(user);
     }
 }

@@ -1,36 +1,40 @@
 package ru.practicum.user;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-
-public class UserMapper {
+import java.util.ArrayList;
+import java.util.List;
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+class UserMapper {
     public static UserDto mapToUserDto(User user) {
-        UserDto userDto = new UserDto();
-        String regDate = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss")
-                .withZone(ZoneOffset.UTC)
-                .format(user.getRegistrationDate());
-        userDto.setId(user.getId());
-        userDto.setEmail(user.getEmail());
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setRegistrationDate(regDate);
-        userDto.setState(user.getState());
-        return userDto;
+      //  Instant regDate = DateTimeFormatter
+      //          .ofPattern("yyyy.MM.dd hh:mm:ss")
+      //          .withZone(ZoneOffset.UTC)
+     //           .format(user.getRegistrationDate());
+
+        return new UserDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getRegistrationDate(), user.getState());
     }
 
-    public static User mapToUser(UserDto userDto) {
+    public static List<UserDto> mapToUserDto(Iterable<User> users) {
+        List<UserDto> result = new ArrayList<>();
+
+        for (User user : users) {
+            result.add(mapToUserDto(user));
+        }
+
+        return result;
+    }
+
+    public static User mapToNewUser(UserDto userDto) {
         User user = new User();
-        user.setId(userDto.getId());
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
-        user.setRegistrationDate(Instant.parse(userDto.getRegistrationDate()));
         user.setState(userDto.getState());
         return user;
     }
