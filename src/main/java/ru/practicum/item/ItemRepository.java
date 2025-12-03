@@ -14,5 +14,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredi
 
     Item save(Item item);
 
+
+
     void deleteByUserIdAndId(Long userId, Long itemId);
 }

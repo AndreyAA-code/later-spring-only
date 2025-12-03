@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
@@ -69,5 +71,19 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.firstName", is(userDto.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(userDto.getLastName())))
                 .andExpect(jsonPath("$.email", is(userDto.getEmail())));
+    }
+
+    @Test
+    void getAllUsers() throws Exception {
+        when(userService.getAllUsers())
+                .thenReturn(Arrays.asList(userDto));
+
+        mvc.perform(get("/users")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is(userDto.getId()), Long.class))
+                .andExpect(jsonPath("$[0].firstName", is(userDto.getFirstName())))
+                .andExpect(jsonPath("$[0].lastName", is(userDto.getLastName())))
+                .andExpect(jsonPath("$[0].email", is(userDto.getEmail())));
     }
 }
