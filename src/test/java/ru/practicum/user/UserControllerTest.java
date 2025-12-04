@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.time.Instant;
 import java.util.Arrays;
 
@@ -53,7 +54,8 @@ class UserControllerTest {
                 "John",
                 "Doe",
                 Instant.now(),
-                UserState.ACTIVE);
+                UserState.ACTIVE,
+                "24.05.2003");
     }
 
     @Test

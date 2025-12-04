@@ -12,12 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 class UserMapper {
     public static UserDto mapToUserDto(User user) {
-      //  Instant regDate = DateTimeFormatter
-      //          .ofPattern("yyyy.MM.dd hh:mm:ss")
-      //          .withZone(ZoneOffset.UTC)
-     //           .format(user.getRegistrationDate());
-
-        return new UserDto(user.getId(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getRegistrationDate(), user.getState());
+        return UserDto.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .registrationDate(user.getRegistrationDate())
+                .state(user.getState())
+             //   .dateOfBirth(user.getDateOfBirth()) // если есть поле в User
+                .build();
     }
 
     public static List<UserDto> mapToUserDto(Iterable<User> users) {
